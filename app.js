@@ -13,8 +13,8 @@ appExpress.use('/login',appUsuario)
 
 
 
-const port = process.env.PORT
-const addresses = process.env.IP
+const port = 3007
+const addresses = '172.16.49.20'
 appExpress.listen(port, () => {
     console.log(`Servidor escuchando en http://${addresses}:${port}/`);
   });
