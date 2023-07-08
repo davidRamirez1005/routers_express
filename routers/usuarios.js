@@ -7,7 +7,7 @@ let con = undefined
 
 appUsuario.use((req,res,next)=>{
         con = mysql.createPool({
-            host: 'localhost',
+            host: '127.0.0.1',
             user: 'campus',
             password: 'campus2023',
             database: 'db_M3_prueba_MYSQL2_node_joseDavid',
