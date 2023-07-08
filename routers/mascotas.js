@@ -1,30 +1,24 @@
-
 import validateSchema from '../validators/middleware/middlewareDatos.js'
-import schema from '../validators/validadorUsuarios.js'
+import schema from '../validators/validadorMascotas.js'
 import express from 'express';
 import con from '../server/db.js';
 
-const appUsuario = express.Router();
+const appMascotas = express.Router();
 
-// ? => significa que puede ser opcional el parametro
-// appUsuario.get('/:id?', (req, res) => {
-//     console.log(req.params);
-//     res.send()
-// })
 /**
  *  ! Metodo GET
  */
-appUsuario.get('/:id?', (req, res) => {
+appMascotas.get('/:id?', (req, res) => {
     (req.params.id) ?
         con.query(
-            /*sql*/`SELECT * FROM tb_usuarios_M3 WHERE id=${req.params.id}`,
+            /*sql*/`SELECT * FROM tb_mascota WHERE id=${req.params.id}`,
             (err, data, fils) => {
             res.send(data);
         }
         )
     :
     con.query(
-        /*sql*/`SELECT * FROM tb_usuarios_M3`,
+        /*sql*/`SELECT * FROM tb_mascota`,
         (err, data, fils) => {
             res.send(data);
         }
@@ -33,15 +27,12 @@ appUsuario.get('/:id?', (req, res) => {
 /**
  * ! metodo POST
  */
-appUsuario.post('/', validateSchema(schema),(req, res) => {
+appMascotas.post('/', validateSchema(schema),(req, res) => {
     const body = req.body
         con.query(
-        /*sql*/`INSERT INTO tb_usuarios_M3 SET ?`,
+        /*sql*/`INSERT INTO tb_mascota SET ?`,
         body,
         (err,data,fils) => {
-            console.log(err);
-            console.log(data);
-            console.log(fils);
             data.affectedRows += 200;
             let resul = body;
             resul.id = data.insertId;
@@ -55,10 +46,10 @@ appUsuario.post('/', validateSchema(schema),(req, res) => {
 /**
  * ! metodo PUT
  */
-appUsuario.put('/:id',validateSchema(schema), (req, res) => {
+appMascotas.put('/:id',validateSchema(schema), (req, res) => {
     const body = req.body
     con.query(
-        /*sql*/`UPDATE tb_usuarios_M3 SET ? WHERE id= ?`,
+        /*sql*/`UPDATE tb_mascota SET ? WHERE id= ?`,
         [body, req.params.id],
         (err,data,fils) => {
             res.status(202).json({
@@ -71,9 +62,9 @@ appUsuario.put('/:id',validateSchema(schema), (req, res) => {
 /**
  * ! metodo DELETE
  */
-appUsuario.delete('/:id', (req, res) => {
+appMascotas.delete('/:id', (req, res) => {
     con.query(
-        /*sql*/`DELETE FROM tb_usuarios_M3 WHERE id= ?`,
+        /*sql*/`DELETE FROM tb_mascota WHERE id= ?`,
         req.params.id,
         (err,data,fils) => {
             res.status(204).json({
@@ -83,4 +74,4 @@ appUsuario.delete('/:id', (req, res) => {
         }
     )
 })
-export default appUsuario;
+export default appMascotas;
