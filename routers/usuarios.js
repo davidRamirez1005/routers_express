@@ -7,15 +7,14 @@ let con = undefined
 
 appUsuario.use((req,res,next)=>{
         con = mysql.createPool({
-            host: '172.16.49.20',
-            user: 'sputnik',
-            password: 'Sp3tn1kC@',
+            host: 'localhost',
+            user: 'campus',
+            password: 'campus2023',
             database: 'db_M3_prueba_MYSQL2_node_joseDavid',
             port : 3306
         })
         next();
 });
-
 
 // ? => significa que puede ser opcional el parametro
 // appUsuario.get('/:id?', (req, res) => {
